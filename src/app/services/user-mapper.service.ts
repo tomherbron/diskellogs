@@ -3,9 +3,16 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class MapperService {
+export class UserMapperService {
 
   constructor() { }
+
+  mapDataForLogin(credentials: any): any {
+    return {
+      email: credentials.email,
+      password: credentials.password
+    }
+  }
 
   mapDataToAPI(dataFromFrontend: any): any {
     return {
