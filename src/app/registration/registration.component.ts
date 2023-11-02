@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
-import {MapperService} from "../services/mapper.service";
-import {Observable, of} from "rxjs";
+import {UserMapperService} from "../services/user-mapper.service";
+import {Router} from "@angular/router";
+import {ToastrModule, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-registration',
@@ -10,20 +11,24 @@ import {Observable, of} from "rxjs";
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  public registrationForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private mapperService: MapperService) {
-    this.formBuilder = formBuilder;
+  registrationForm: FormGroup;
+
+  constructor(private authService: AuthService,
+              private mapperService: UserMapperService,
+              private router: Router,
+              private toasterService: ToastrService) {
+
   }
 
   ngOnInit(): void {
-    this.registrationForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      passwordConf: ['',[Validators.required, Validators.minLength(8)]]
-    },{ validators: this.passwordMatchValidator });
+    this.registrationForm = new FormGroup({
+      firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      passwordConf: new FormControl('', [Validators.required, Validators.minLength(8)])
+    }, {validators: this.passwordMatchValidator});
   }
 
   registerUser(): void {
@@ -31,14 +36,39 @@ export class RegistrationComponent implements OnInit {
       const formData = this.registrationForm.value;
       const cleanedFormData = this.mapperService.mapDataToAPI(formData);
       this.authService.registerUser(cleanedFormData).subscribe(response => {
-        console.log(response)
+        if (response.status === 'success'){
+          this.router.navigateByUrl("/home")
+            .then(r => this.toasterService.success("Successfully registered!"));
+        } else {
+           this.toasterService.error("User already exists. Please login!");
+        }
       });
     } else {
-      console.log("Error in form...")
+      this.toasterService.error("Subscription form is invalid.");
     }
   }
 
-  passwordMatchValidator(control: FormGroup): ValidationErrors | null {
+  get firstName(){
+    return this.registrationForm.get('firstName');
+  }
+
+  get lastName(){
+    return this.registrationForm.get('lastName');
+  }
+
+  get email(){
+    return this.registrationForm.get('email');
+  }
+
+  get password(){
+    return this.registrationForm.get('password');
+  }
+
+  get passwordConf(){
+    return this.registrationForm.get('passwordConf');
+  }
+
+  passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password');
     const passwordConf = control.get('passwordConf');
 
