@@ -12,6 +12,10 @@ import {HomeComponent} from './pages/home/home.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {JwtInterceptor} from "./services/jwt-interceptor.service";
+import { ProfileComponent } from './pages/profile/profile.component';
+import { CollectionComponent } from './pages/collection/collection.component';
+import { FooterComponent } from './footer/footer.component';
+import { AddRecordComponent } from './forms/add-record/add-record.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import {JwtInterceptor} from "./services/jwt-interceptor.service";
     LoginComponent,
     RegistrationComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    CollectionComponent,
+    FooterComponent,
+    AddRecordComponent
   ],
   imports: [
     BrowserModule,

@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  loginUser(){
+  loginUser(): void {
     if (this.loginForm.valid){
       const credentials = this.loginForm.value;
-      const cleanedCredentials = this.mapperService.mapDataForLogin(credentials);
+      const cleanedCredentials = this.mapperService.mapUserDataForLogin(credentials);
       this.authService.loginUser(cleanedCredentials).subscribe(response => {
           if (response.status === "success") {
             this.tokenService.saveToken(response.token);

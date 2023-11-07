@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
   registerUser(): void {
     if (this.registrationForm.valid){
       const formData = this.registrationForm.value;
-      const cleanedFormData = this.mapperService.mapDataToAPI(formData);
+      const cleanedFormData = this.mapperService.mapUserDataToAPI(formData);
       this.authService.registerUser(cleanedFormData).subscribe(response => {
         if (response.status === 'success'){
           this.router.navigateByUrl("/home")

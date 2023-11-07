@@ -7,14 +7,14 @@ export class UserMapperService {
 
   constructor() { }
 
-  mapDataForLogin(credentials: any): any {
+  mapUserDataForLogin(credentials: any): any {
     return {
       email: credentials.email,
       password: credentials.password
     }
   }
 
-  mapDataToAPI(dataFromFrontend: any): any {
+  mapUserDataToAPI(dataFromFrontend: any): object {
     return {
       first_name: dataFromFrontend.firstName,
       last_name: dataFromFrontend.lastName,
@@ -25,6 +25,17 @@ export class UserMapperService {
       zip_code: dataFromFrontend.zipCode,
       city: dataFromFrontend.city
     };
+  }
+
+  mapRecordDataToApi(dataFromFrontend: any): object {
+    return {
+      ref: dataFromFrontend.ref,
+      title: dataFromFrontend.title,
+      artist: dataFromFrontend.artist,
+      genre: dataFromFrontend.genre,
+      price: dataFromFrontend.price,
+      release_year: dataFromFrontend.releaseYear,
+    }
   }
 
 }

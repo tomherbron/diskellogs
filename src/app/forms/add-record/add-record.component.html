@@ -1,0 +1,55 @@
+<div class="bg-white h-screen">
+  <div class="container mx-auto p-5 py-10">
+    <div class="flex flex-row justify-items-center">
+      <img src="assets/img/vinyl-record-svg.png" class="w-1/4 h-1/4 p-6" alt="add-record">
+      <div class="flex flex-col justify-items-start bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <h2 class="text-4xl pt-1 pb-5">Create a new record</h2>
+        <form [formGroup]="recordForm" (ngSubmit)="addRecord()">
+          <input
+            type="text"
+            id="title"
+            class="block border border-grey-light w-full p-3 rounded mb-4"
+            formControlName="title"
+            placeholder="Title" />
+
+          <input
+            type="text"
+            class="block border border-grey-light w-full p-3 rounded mb-4"
+            formControlName="artist"
+            placeholder="Artist" />
+
+          <input
+            type="text"
+            class="block border border-grey-light w-full p-3 rounded mb-4"
+            formControlName="ref"
+            placeholder="Reference" />
+
+          <input
+            type="text"
+            class="block border border-grey-light w-full p-3 rounded mb-4"
+            formControlName="genre"
+            placeholder="Genre" />
+
+          <input
+            type="text"
+            class="block border border-grey-light w-full p-3 rounded mb-4"
+            formControlName="price"
+            placeholder="Price" />
+
+          <input
+            type="date"
+            class="block border border-grey-light w-full p-3 rounded mb-4"
+            formControlName="releaseYear"
+            placeholder="Release year" />
+
+          <div class="flex flex-col items-center justify-items-center">
+            <button
+              type="submit"
+              class="w-1/6 text-center py-3 rounded bg-teal-500 text-white hover:bg-green-dark focus:outline-none my-1"
+            >Add Record</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
