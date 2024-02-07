@@ -7,13 +7,13 @@ import {Observable} from "rxjs";
 })
 export class UserService {
 
-  private homeEndpoint: string = 'home';
+  private userEndpoint: string = 'user';
   private addRecordEndpoint: string = 'add-record';
 
   constructor(private httpService: HttpService) { }
 
   fetchUser(): Observable<any> {
-    return this.httpService.get(this.homeEndpoint);
+    return this.httpService.get(this.userEndpoint);
   }
 
   addRecord(recordData: any): Observable<any> {

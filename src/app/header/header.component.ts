@@ -18,7 +18,7 @@ export class HeaderComponent {
     return this.tokenService.isLoggedIn();
   }
 
-  logOut(){
+  logOut(): void {
     this.tokenService.clearToken();
     this.router.navigateByUrl("/")
       .then(r => this.toasterService.success("You've been logged out."));

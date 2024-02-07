@@ -14,6 +14,17 @@ export class UserMapperService {
     }
   }
 
+  mapUserDataFromAPI(dataFromBackend: any): object {
+    return {
+      firstName: dataFromBackend.first_name,
+      lastName: dataFromBackend.last_name,
+      email: dataFromBackend.email,
+      address: dataFromBackend.address,
+      zipCode: dataFromBackend.zip_code,
+      city: dataFromBackend.city
+    }
+  }
+
   mapUserDataToAPI(dataFromFrontend: any): object {
     return {
       first_name: dataFromFrontend.firstName,
